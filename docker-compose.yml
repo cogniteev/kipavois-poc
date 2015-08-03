@@ -6,7 +6,9 @@ kibana:
   links:
     - nginx:elasticsearch
   ports:
-    - 5601:5601
+    - "5601:5601"
+  extra_hosts:
+    - "sandbox.docido.com:192.168.99.100"
 
 logstash:
   build: logstash
@@ -18,4 +20,10 @@ nginx:
   links:
     - elasticsearch:elasticsearch
   ports:
-    - 9200:9200
+    - "9200:9200"
+flask:
+  build: flask
+  links:
+    - kibana:kibana
+  ports:
+    - "5000:5000"
