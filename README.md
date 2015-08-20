@@ -63,7 +63,7 @@ in nginx configuration and get rid of the Flask application.
 
 In the real use-case where KiPavois is used, Flask application is taking
 care of authentication, not nginx. So the Flask container here is used to
-demonstrate the [kipavois](https://pypi.python.org/pypi/kipavois-python/)
+demonstrate the [kipavois](https://pypi.python.org/pypi/kipavois/)
 Python module.
 
 ## License
