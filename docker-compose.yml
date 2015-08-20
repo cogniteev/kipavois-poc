@@ -7,7 +7,7 @@ authproxy:
     - elasticsearch:elasticsearch
 
 kibana:
-  image: kibana:4.1.1
+  build: kibana
   links:
     - authproxy:elasticsearch
   ports:
