@@ -22,6 +22,7 @@ where *docker_registry* is:
 * `localhost` if docker is installed on your workstation
 * IP of your docker-machine machine. You can get it by running `docker-machine ip <NAME>`. To get list of available machine, use the `docker-machine ls` command.
 
+You will be then asked to provide a login/password. See [nginx Dockerfile](nginx/Dockerfile) to get the list of valid users.
 
 ## Containers Linkage
 
@@ -31,7 +32,7 @@ where *docker_registry* is:
 * Nginx performs basic authentication and acts as proxy for an uwsgi flask application
 * Flask application processes requests as follow:
   1. adds an `x-kibana-user` HTTP header, value if the username authenticated in nginx. If the username is `admin`, then the HTTP header is not added.
-  1. forward requests to kipavois, and stream the result back to nginx
+  1. forward requests to KiPavois, and stream the result back to nginx
 * Kibana leverage Elasticsearch to build dashboards
 * Kipavois receives Elasticsearch requests made by Kibana and process the queries as follow:
   * If the `x-kibana-user` is set:
