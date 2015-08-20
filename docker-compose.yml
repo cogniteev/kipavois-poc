@@ -14,6 +14,11 @@ kibana:
   extra_hosts:
     - "sandbox.docido.com:192.168.99.100"
 
+kibana-config:
+  build: kibana-config
+  links:
+    - elasticsearch:elasticsearch
+
 logstash:
   build: logstash
   links:
