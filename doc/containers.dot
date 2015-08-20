@@ -1,0 +1,9 @@
+digraph G {
+  graph[rankdir=RL]
+  node[shape=none]
+  elasticsearch -> kipavois;
+  elasticsearch -> logstash;
+  kipavois -> kibana
+  kibana -> flask
+  flask -> nginx
+}
