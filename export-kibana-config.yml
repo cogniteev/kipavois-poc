@@ -1,0 +1,23 @@
+
+# Backup .kibana index
+backup_mapping:
+  image: cogniteev/elasticdump:0.14.3
+  command: >
+    --input=http://elasticsearch:9200/.kibana
+    --output=/export/kibana-mapping.json
+    --type=mapping
+  external_links:
+    - kipavoispoc_elasticsearch_1:elasticsearch
+  volumes:
+    - $HOME:/export
+
+backup_data:
+  image: cogniteev/elasticdump:0.14.3
+  command: >
+    --input=http://elasticsearch:9200/.kibana
+    --output=/export/kibana-data.json
+    --type=data
+  external_links:
+    - kipavoispoc_elasticsearch_1:elasticsearch
+  volumes:
+    - $HOME:/export
