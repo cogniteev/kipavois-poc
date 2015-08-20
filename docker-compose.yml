@@ -1,7 +1,8 @@
 elasticsearch:
   image: elasticsearch:1.7.1
-authproxy:
-  build: es-kibana-auth-proxy
+
+kipavois:
+  image: cogniteev/kipavois:0.0.2
   command: npm start -- -f company
   links:
     - elasticsearch:elasticsearch
@@ -9,7 +10,7 @@ authproxy:
 kibana:
   build: kibana
   links:
-    - authproxy:elasticsearch
+    - kipavois:elasticsearch
   extra_hosts:
     - "sandbox.docido.com:192.168.99.100"
 
