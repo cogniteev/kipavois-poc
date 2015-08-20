@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import base64
+
 from flask import (
     Flask,
     Response,
@@ -49,9 +51,18 @@ def chunked_response_iterator(resp, native_chunk_support, line_based):
 def monitor_proxy(url):
     params = dict(request.args.items())
     headers = dict(request.headers.items())
+    server = headers.get('Host', 'localhost:5000')
+    authorization = headers.get('Authorization', '')
+    if authorization.startswith('Basic '):
+        userpass = authorization[len('Basic '):]
+        user = base64.b64decode(userpass)
+        userpass = user.split(':')
+        if len(userpass) == 2:
+            headers.update({
+                'x-kibana-user': userpass[0],
+            })
     headers.update({
-        'x-kibana-user': 'google',
-        'Referer': 'http://localhost:5000/monitor/' + url
+        'Referer': 'http://{}/monitor/{}'.format(server, url)
     })
     addr = 'http://kibana:5601/' + url
     req = MONITOR_SESSION.request(
