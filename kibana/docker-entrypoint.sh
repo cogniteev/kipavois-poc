@@ -32,9 +32,15 @@ if [ "$1" = 'kibana' ]; then
     if curl -s "${ELASTICSEARCH_URL}"/_cat/indices | grep -q " open .kibana" ; then
       break
     fi
+		echo >&2 ".kibana index does not exists. Waiting for elasticdump"
     sleep 1
   done
-  echo >&2 '.kibana index is opened'
+	if ! curl -s "${ELASTICSEARCH_URL}"/_cat/indices | grep -q " open .kibana" ; then
+  	echo >&2 'Fatal: .kibana index does not exists. Timeout error.'
+		exit 1
+	else
+		echo >&2 '.kibana index is now opened. Starting Kibana'
+	fi
 
 	set -- gosu kibana "$@"
 fi
