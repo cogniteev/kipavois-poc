@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import base64
+
 from flask import (
     Flask,
     request,
@@ -10,13 +12,19 @@ app = Flask(__name__)
 
 
 def authorize_header_user():
+    """Retrieve user name in the 'Authorization' HTTP header.
+    If the user is 'admin', then return `None`, meaning that the user
+    has administrative permissions, and there is no restriction.
+    """
     authorization = request.headers.get('Authorization', '')
     if authorization.startswith('Basic '):
         userpass = authorization[len('Basic '):]
         user = base64.b64decode(userpass)
         userpass = user.split(':')
         if len(userpass) == 2:
-            return userpass[0]
+            user = userpass[0]
+            if user != 'admin':
+                return user
 
 
 def host_referer():
