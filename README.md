@@ -42,12 +42,12 @@ You will be then asked to provide a login/password. See [nginx Dockerfile](nginx
 
 ## Rationale
 
-Here, authentication is made by Nginx, and the Flask application is almost useless. It is possible to specify the `x-kibana-user` in nginx configuration.
+Authentication is made by Nginx, and the Flask application is almost stateless. It would be possible to specify the `x-kibana-user` in nginx configuration.
 
-But in the real application where Kipavois is used, Flask application is taking
-care of authentication, not nginx. The Flask container here is used to
+But in the real use-case where KiPavois is used, Flask application is taking
+care of authentication, not nginx. So the Flask container here is used to
 demonstrate the [flask-kipavois](https://pypi.python.org/pypi/flask-kipavois/)
-Python module used it.
+Python module.
 
 ## License
 
